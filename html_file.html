@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interest Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💰 Interest Calculator</h1>
+            <p>Choose your calculation type and get instant results</p>
+        </div>
+
+        <!-- Selection Card -->
+        <div class="selection-card" id="selectionCard">
+            <h2 class="selection-title">Choose Interest Type</h2>
+            <div class="interest-options">
+                <div class="interest-option" data-type="simple">
+                    <span class="option-icon">📈</span>
+                    <div class="option-title">Simple Interest</div>
+                    <!-- <div class="option-description">Interest calculated only on the principal amount. Linear growth over time.</div> -->
+                </div>
+                <div class="interest-option" data-type="compound">
+                    <span class="option-icon">🚀</span>
+                    <div class="option-title">Compound Interest</div>
+                    <!-- <div class="option-description">Interest calculated on principal plus accumulated interest. Exponential growth.</div> -->
+                </div>
+            </div>
+            <!-- <div class="info-box">
+                <strong>Tip:</strong> Compound interest typically yields higher returns over time as you earn interest on your interest!
+            </div> -->
+        </div>
+
+        <!-- Simple Interest Calculator -->
+        <div class="calculator-section" id="simpleCalculator">
+            <h2 class="calculator-title">📈 Simple Interest Calculator</h2>
+            <form id="simpleForm">
+                <div class="form-group">
+                    <label for="simplePrincipal">Principal Amount (₹)</label>
+                    <input type="number" id="simplePrincipal" placeholder="Enter principal amount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="simpleRate">Annual Interest Rate (%)</label>
+                    <input type="number" id="simpleRate" placeholder="Enter interest rate" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="simpleTime">Time Period (Years)</label>
+                    <input type="number" id="simpleTime" placeholder="Enter time in years" step="0.01" required>
+                </div>
+                <button type="submit" class="calculate-btn">Calculate Simple Interest</button>
+            </form>
+            <div id="simpleResult" class="result" style="display: none;">
+                <h3>📊 Simple Interest Results</h3>
+                <div class="result-item">
+                    <span class="result-label">Principal Amount:</span>
+                    <span class="result-value" id="simplePrincipalResult">₹0.00</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Interest Rate:</span>
+                    <span class="result-value" id="simpleRateResult">0.00%</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Time Period:</span>
+                    <span class="result-value" id="simpleTimeResult">0 years</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Interest Earned:</span>
+                    <span class="result-value" id="simpleInterestResult">₹0.00</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Total Amount:</span>
+                    <span class="result-value" id="simpleTotalResult">₹0.00</span>
+                </div>
+            </div>
+            <button class="reset-btn" onclick="resetCalculator()">← Choose Different Interest Type</button>
+        </div>
+
+        <!-- Compound Interest Calculator -->
+        <div class="calculator-section" id="compoundCalculator">
+            <h2 class="calculator-title">🚀 Compound Interest Calculator</h2>
+            <form id="compoundForm">
+                <div class="form-group">
+                    <label for="compoundPrincipal">Principal Amount (₹)</label>
+                    <input type="number" id="compoundPrincipal" placeholder="Enter principal amount" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="compoundRate">Annual Interest Rate (%)</label>
+                    <input type="number" id="compoundRate" placeholder="Enter interest rate" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="compoundTime">Time Period (Years)</label>
+                    <input type="number" id="compoundTime" placeholder="Enter time in years" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="compoundFrequency">Compounding Frequency</label>
+                    <select id="compoundFrequency" required>
+                        <option value="1">Annually (once per year)</option>
+                        <option value="2">Semi-annually (twice per year)</option>
+                        <option value="4">Quarterly (4 times per year)</option>
+                        <option value="12" selected>Monthly (12 times per year)</option>
+                        <option value="52">Weekly (52 times per year)</option>
+                        <option value="365">Daily (365 times per year)</option>
+                    </select>
+                </div>
+                <button type="submit" class="calculate-btn">Calculate Compound Interest</button>
+            </form>
+            <div id="compoundResult" class="result" style="display: none;">
+                <h3>📊 Compound Interest Results</h3>
+                <div class="result-item">
+                    <span class="result-label">Principal Amount:</span>
+                    <span class="result-value" id="compoundPrincipalResult">₹0.00</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Interest Rate:</span>
+                    <span class="result-value" id="compoundRateResult">0.00%</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Time Period:</span>
+                    <span class="result-value" id="compoundTimeResult">0 years</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Compounding:</span>
+                    <span class="result-value" id="compoundFrequencyResult">Monthly</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Interest Earned:</span>
+                    <span class="result-value" id="compoundInterestResult">₹0.00</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Effective Annual Rate:</span>
+                    <span class="result-value" id="effectiveRateResult">0.00%</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Total Amount:</span>
+                    <span class="result-value" id="compoundTotalResult">₹0.00</span>
+                </div>
+            </div>
+            <button class="reset-btn" onclick="resetCalculator()">← Choose Different Interest Type</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
